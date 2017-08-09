@@ -6,7 +6,7 @@ from math import sin
 from os import listdir
 import glob
 import optparse
-procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/procDict.json'
+procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/procDict_fcc_v01.json'
 
 #__________________________________________________________
 def getMasses(limit_files):
@@ -45,6 +45,7 @@ if __name__=="__main__":
     parser.add_option('-n', '--name', dest='name', type=str, default='')
     parser.add_option('-p', '--plotname', dest='plotname', type=str, default='')
     parser.add_option('-c', '--file_cms', dest='files_cms', type=str, default='')
+    parser.add_option('-s', '--signal', dest='signal', type=str, default='')
 
     ops, args = parser.parse_args()
     args = split_comma_args(args)
@@ -60,7 +61,7 @@ if __name__=="__main__":
         files_cms=glob.glob(ops.files_cms)
         masses_cms=getMasses(files_cms)
 
-
+    signal = ops.signal
     print 'NOM=============================================='
     print masses_nom
     print files_nom
@@ -87,7 +88,7 @@ if __name__=="__main__":
     if len(masses_cms)>0: masses_cms, files_cms = (list(t) for t in zip(*sorted(zip(masses_cms, files_cms))))
 
 
-    XS=getXS(masses_nom, 'pp_Zprime_VALUETeV_ll')
+    XS=getXS(masses_nom, signal)
     nmass=len(files_nom)
 
     ExpMed = array( 'd' )
@@ -158,7 +159,7 @@ if __name__=="__main__":
 #################################################
 
 
-    XS=getXS(masses_cms, 'pp_Zprime_VALUETeV_ll')
+    XS=getXS(masses_cms, signal)
     nmass=len(files_cms)
 
     ExpMed = array( 'd' )
