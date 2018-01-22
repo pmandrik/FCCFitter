@@ -4,6 +4,7 @@ import json
 from array import array
 from math import sin
 from os import listdir
+import os
 import glob
 import optparse
 procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/procDict_fcc_v02.json'
