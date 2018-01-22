@@ -177,7 +177,12 @@ if __name__=="__main__":
     config_files=glob.glob(ops.files)
     name = ops.name
     combined=ops.combined
-    if '.json' not in name:name=name+'.json'
+    if not os.path.isdir("Data/"):
+        os.system('mkdir Data')
+    if '.json' not in name:name='Data/'+name+'.json'
+
+
+
 
     config_files = [i for i in config_files if '~' not in i and 'signi' not in i]
     print config_files

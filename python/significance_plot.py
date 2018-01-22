@@ -4,6 +4,7 @@ import sys
 from matplotlib import pyplot as plt
 import numpy as np
 from scipy.interpolate import interp1d
+import os
 
 #__________________________________________________________
 def getMassDisco(signiDict):
@@ -36,7 +37,7 @@ def getMassDisco(signiDict):
         plt.xlabel('luminosity fb$^{-1}')
         plt.ylabel('significance sigma')
         plt.grid(True)
-        plt.savefig('Signi_%s.eps'%(m,))
+        plt.savefig('Plots/Signi_%s.eps'%(m,))
         plt.close()
 
 
@@ -51,7 +52,7 @@ def getMassDisco(signiDict):
         plt.grid(True)
         discolumi = f(5) if xnew[-1]>5.0 else f(xnew[-1])
         plt.plot([0,5],[discolumi, discolumi], 'k-', lw=2)            
-        plt.savefig('SigniInverse_%s.eps'%(m,))
+        plt.savefig('Plots/SigniInverse_%s.eps'%(m,))
         print 'lumi = %f'%discolumi
         plt.close()
 
@@ -71,9 +72,13 @@ if __name__=="__main__":
     parser.add_option('-n', '--names', dest='names', type=str, default='')
     parser.add_option('-p', '--plot', dest='plot', type=str, default='')
 
+    
     ops, args = parser.parse_args()
     signiDict=ops.files
     names=ops.names
+    
+    if not os.path.isdir("Plots/"):
+        os.system('mkdir Plots')
 
     signiList = signiDict.split(' ')
     namesList = names.split(' ')
@@ -96,7 +101,7 @@ if __name__=="__main__":
     plt.grid(True)
     plt.legend(loc=4)
     plt.yscale('log')
-    plt.savefig('DiscoveryPotential_%s.eps'%(ops.plot))
+    plt.savefig('Plots/DiscoveryPotential_%s.eps'%(ops.plot))
     plt.close()
 
 

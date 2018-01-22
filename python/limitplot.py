@@ -6,7 +6,7 @@ from math import sin
 from os import listdir
 import glob
 import optparse
-procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/procDict_fcc_v01.json'
+procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/procDict_fcc_v02.json'
 
 #__________________________________________________________
 def getMasses(limit_files):
@@ -49,6 +49,10 @@ if __name__=="__main__":
 
     ops, args = parser.parse_args()
     args = split_comma_args(args)
+
+    if not os.path.isdir("Plots/"):
+        os.system('mkdir Plots')
+
     files_nom=[]
     masses_nom=[]
     if ops.files_nom!='':
@@ -214,7 +218,7 @@ if __name__=="__main__":
     canvas.GetFrame().SetBorderSize( 12 )
     canvas.Modified()
     canvas.Update()
-    canvas.SaveAs("lim_%s.eps"%(ops.name))
-    canvas.SaveAs("lim_%s.png"%(ops.name))
+    canvas.SaveAs("Plots/lim_%s.eps"%(ops.name))
+    canvas.SaveAs("Plots/lim_%s.png"%(ops.name))
 
    
