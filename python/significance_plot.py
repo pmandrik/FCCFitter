@@ -37,7 +37,7 @@ def getMassDisco(signiDict):
         plt.xlabel('luminosity fb$^{-1}')
         plt.ylabel('significance sigma')
         plt.grid(True)
-        plt.savefig('Plots/Signi_%s.eps'%(m,))
+        plt.savefig('Plots/Signi_%s.eps'%(m))
         plt.close()
 
 
@@ -52,7 +52,7 @@ def getMassDisco(signiDict):
         plt.grid(True)
         discolumi = f(5) if xnew[-1]>5.0 else f(xnew[-1])
         plt.plot([0,5],[discolumi, discolumi], 'k-', lw=2)            
-        plt.savefig('Plots/SigniInverse_%s.eps'%(m,))
+        plt.savefig('Plots/SigniInverse_%s.eps'%(m))
         print 'lumi = %f'%discolumi
         plt.close()
 
@@ -93,15 +93,48 @@ if __name__=="__main__":
         print signiList[s]
         Disco,Mass=getMassDisco(signiList[s])
         Disco=[i/1000. for i in Disco]
-        plt.plot(Mass, Disco, label=namesList[s])
+        from scipy import interpolate
+        f = interpolate.interp1d(Mass, Disco)
+        xnew = np.linspace(Mass[0],Mass[-1],50)
+        Disco_smooth = f(xnew)
 
-    plt.ylabel('luminosity fb$^{-1}$')
+        plt.plot(Mass, Disco, label=namesList[s])
+        #plt.plot( xnew, Disco_smooth, '-')
+        
+
+
+    plt.ylabel('Int. Luminosity fb$^{-1}$')
     plt.xlabel('mass [TeV]')
-    plt.title('luminosity verus mass for a 5 $\sigma$ discovery')
+    #plt.title('luminosity verus mass for a 5 $\sigma$ discovery')
+    if 'tt' in namesList:
+        plt.ylim(ymax = 1000000, ymin = 100)
+        plt.text(10.57, 500000, r'$Z\' \rightarrow = t \bar{t}$')
+        plt.text(10.57, 300000, r'Integrated luminosity verus mass for a 5 $\sigma$ discovery')
+
+        plt.text(10.57, 2500, r'$2.5ab^{-1}$')
+        plt.plot([10,30], [2500, 2500], color='black')
+        plt.text(10.57, 30000, r'$30ab^{-1}$')
+        plt.plot([10,30], [30000, 30000], color='black')
+
+    if 'll' in namesList:
+        plt.ylim(ymax = 1000000, ymin = 10)
+        plt.text(16, 500000, r'$Z\' \rightarrow = l^{+}l^{-}$')
+        plt.text(16, 300000, r'Integrated luminosity verus mass for a 5 $\sigma$ discovery')
+
+        plt.text(16, 2500, r'$2.5ab^{-1}$')
+        plt.plot([15,50], [2500, 2500], color='black')
+        plt.text(16, 30000, r'$30ab^{-1}$')
+        plt.plot([15,50], [30000, 30000], color='black')
+        plt.legend(loc=4)
+
+
     plt.grid(True)
-    plt.legend(loc=4)
+    #plt.legend(loc=4)
     plt.yscale('log')
+
     plt.savefig('Plots/DiscoveryPotential_%s.eps'%(ops.plot))
+    plt.savefig('Plots/DiscoveryPotential_%s.png'%(ops.plot))
+
     plt.close()
 
 
