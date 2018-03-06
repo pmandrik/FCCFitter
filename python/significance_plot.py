@@ -5,6 +5,9 @@ from matplotlib import pyplot as plt
 import numpy as np
 from scipy.interpolate import interp1d
 import os
+import ROOT as r
+from ROOT import *
+from array import array
 plotname=''
 #__________________________________________________________
 def getMassDisco(signiDict):
@@ -88,6 +91,8 @@ if __name__=="__main__":
         print 'different length, name, signi, exit',len(signiList),'  ',len(namesList)
         sys.exit(3)
     plt.figure()
+
+    graph_array = []
     
     for s in xrange(len(signiList)):
         print signiList[s]
@@ -101,6 +106,12 @@ if __name__=="__main__":
         plt.plot(Mass, Disco, label=namesList[s])
         #plt.plot( xnew, Disco_smooth, '-')
         
+        Mass_array  = array( 'd' )
+        Disco_array = array( 'd' )
+        for m in range( len(Mass) ) :
+          Mass_array.append( Mass[m] )
+          Disco_array.append( Disco[m] )
+        graph_array.append( [namesList[s],Mass_array,Disco_array] )
 
 
     plt.ylabel('Int. Luminosity fb$^{-1}$')
@@ -137,6 +148,95 @@ if __name__=="__main__":
 
     plt.close()
 
+    ########################
+    # ROOT style
+    canvas = r.TCanvas("Discovery","Discovery",0,0,600,600)
+    canvas.SetLogy(1)
+    canvas.SetTicks(1,1)
+    canvas.SetLeftMargin(0.14)
+    canvas.SetRightMargin(0.08)
+    canvas.SetGridx()
+    canvas.SetGridy()
+
+    # need to define location in plot, can conflict with text
+    lg = r.TLegend(0.8,0.1,0.95,0.3)
+    lg.SetFillStyle(0)
+    lg.SetLineColor(0)
+    lg.SetBorderSize(0)
+    lg.SetShadowColor(10)
+    lg.SetTextSize(0.040)
+    lg.SetTextFont(42)
+    
+    color = [kBlue-4,kRed,kGreen-3,kViolet,kBlack]
+    for s in xrange(len(signiList)):
+      ana   = graph_array[s][0]
+      Mass  = graph_array[s][1]
+      nmass = len(Mass)
+      Disco = graph_array[s][2]
+
+      gdisco_root = r.TGraph(nmass, Mass, Disco)
+      if s<5 : gdisco_root.SetLineColor(color[s])
+      else   : gdisco_root.SetLineColor(s+20)
+      gdisco_root.SetLineWidth(3)
+      if s == 0:
+        gdisco_root.SetName(ana)
+        gdisco_root.SetTitle( "" )
+        gdisco_root.GetXaxis().SetTitle( "Mass [TeV]" )
+        gdisco_root.GetYaxis().SetTitle( "Int. Luminosity [fb^{-1}]" )
+        gdisco_root.GetXaxis().SetLimits(Mass[0], Mass[-1])
+        gdisco_root.SetMinimum(1E+2)
+        gdisco_root.SetMaximum(1E+8)
+        gdisco_root.GetYaxis().SetTitleOffset(1.6)
+        gdisco_root.Draw("ACP")
+        #gdisco_root.SetMarkerStyle(21)
+        #gdisco_root.SetMarkerSize(1.5)
+        #gdisco_root.SetMarkerColor(kRed)
+        #gdisco_root.Draw("*")
+      else :
+        gdisco_root.Draw("ACP same")
+
+      lg.AddEntry(gdisco_root,ana,"L")
+    if len(signiList)>1 : lg.Draw()
+
+    line1 = TLine(graph_array[s][1][0],2.5E+3,graph_array[s][1][-1],2.5E+3);
+    line1.SetLineWidth(3)
+    line1.SetLineStyle(2)
+    line1.SetLineColor(kGreen+3);
+    line1.Draw("same");
+
+    line2 = TLine(graph_array[s][1][0],3E+4,graph_array[s][1][-1],3E+4);
+    line2.SetLineWidth(3)
+    line2.SetLineStyle(2)
+    line2.SetLineColor(kGreen+3);
+    line2.Draw("same");
+
+    plotname = ""
+    if ana=='tt' : plotname+="Z\' #rightarrow t#bar{t}"
+    if ana=='ll' : plotname+="Z\' #rightarrow l^{+}l^{-}"
+    if ana=='ww' : plotname+="RSG #rightarrow W^{+}W^{-}"
+    label = r.TLatex()
+    label.SetNDC()
+    label.SetTextColor(1)
+    label.SetTextSize(0.042)
+    label.SetTextAlign(12)
+    label.DrawLatex(0.18,0.85, "FCC simulation")
+    label.DrawLatex(0.18,0.79, "\sqrt{s}=100TeV")
+    label.SetTextSize(0.03)
+    label.DrawLatex(0.2,0.14, "Integrated luminosity verus mass for a 5 #sigma discovery")
+    label.SetTextSize(0.036)
+    label.DrawLatex(0.18,0.73, plotname)
+    label.SetTextSize(0.03)
+    label.DrawLatex(0.8,0.46, "30 ab^{-1}")
+    label.DrawLatex(0.8,0.315, "2.5 ab^{-1}")
+
+
+    canvas.RedrawAxis()
+    canvas.Update()
+    canvas.GetFrame().SetBorderSize( 12 )
+    canvas.Modified()
+    canvas.Update()
+    canvas.SaveAs('Plots/DiscoveryPotential_%s_rootStyle.eps'%(ops.plot))
+    canvas.SaveAs('Plots/DiscoveryPotential_%s_rootStyle.png'%(ops.plot))
 
 
 
