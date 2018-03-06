@@ -180,9 +180,7 @@ if __name__=="__main__":
     if not os.path.isdir("Data/"):
         os.system('mkdir Data')
     if '.json' not in name:name='Data/'+name+'.json'
-
-
-
+    else: name:name='Data/'+name
 
     config_files = [i for i in config_files if '~' not in i and 'signi' not in i]
     print config_files
@@ -197,7 +195,6 @@ if __name__=="__main__":
     lumistart=10
     tobreak=False
     for cfg in config_files:
-
         signi=getSigni(cfg, lumistart,combined)
         scaling=(nsig/signi)**2
         print 'scaling  ',scaling
