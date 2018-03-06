@@ -180,7 +180,7 @@ if __name__=="__main__":
     if not os.path.isdir("Data/"):
         os.system('mkdir Data')
     if '.json' not in name:name='Data/'+name+'.json'
-    else: name:name='Data/'+name
+    else: name='Data/'+name
 
     config_files = [i for i in config_files if '~' not in i and 'signi' not in i]
     print config_files
