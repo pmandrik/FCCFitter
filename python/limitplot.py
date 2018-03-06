@@ -118,6 +118,8 @@ if __name__=="__main__":
     gmed  = r.TGraph(nmass, masses_array, ExpMed)
     gtheo = r.TGraph(nmass, masses_array, XS)
 
+    proc = '#sigma(pp #rightarrow Z\')*BR [pb]'
+    if ops.name.find("ww") : proc = '#sigma(pp #rightarrw RSG)*BR [pb]'
 
     gmed.SetName("exp_median")
     gmed.SetLineColor(1)
@@ -125,7 +127,7 @@ if __name__=="__main__":
     gmed.SetLineWidth(3)
     gmed.SetTitle( 'Limit versus mass' )
     gmed.GetXaxis().SetTitle( 'Mass [TeV]' )
-    gmed.GetYaxis().SetTitle( '#sigma(pp #rightarrow Z\')*BR [pb]' )
+    gmed.GetYaxis().SetTitle( proc )
     gmed.GetXaxis().SetLimits(masses_nom[0], masses_nom[-1])
     gmed.SetMinimum(min(ExpMed[-1],ExpM1[-1],ExpP1[-1],ExpM2[-1],ExpP2[-1],XS[-1])*0.1)
     gmed.SetMaximum(max(ExpMed[0],ExpM1[0],ExpP1[0],ExpM2[0],ExpP2[0],XS[0])*10.)
