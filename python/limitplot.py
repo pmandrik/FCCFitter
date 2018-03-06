@@ -7,7 +7,7 @@ from os import listdir
 import os
 import glob
 import optparse
-procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/procDict_fcc_v02.json'
+procDict='/afs/cern.ch/work/h/helsens/public/FCCDicts/FCC_procDict_fcc_v02.json'
 
 #__________________________________________________________
 def getMasses(limit_files):
