@@ -225,6 +225,8 @@ if __name__=="__main__":
     line2.Draw("same");
 
     plotname = ""
+    if ana=='SSM': plotname+="Z\'_{SSM} #rightarrow t#bar{t}"
+    if ana=='TC2': plotname+="Z\' #rightarrow t#bar{t}"
     if ana=='tt' : plotname+="Z\' #rightarrow t#bar{t}"
     if ana=='ll' : plotname+="Z\' #rightarrow l^{+}l^{-}"
     if ana=='ww' : plotname+="RSG #rightarrow W^{+}W^{-}"
@@ -241,8 +243,8 @@ if __name__=="__main__":
     label.DrawLatex(0.18,0.73, plotname)
     label.SetTextSize(0.03)
     label.SetNDC(False)
-    label.DrawLatex(mass_for_latex,1.5*30E+3, "30 ab^{-1}")
-    label.DrawLatex(mass_for_latex,1.5*2.5E+3, "2.5 ab^{-1}")
+    label.DrawLatex(mass_for_latex,0.7*30E+3, "30 ab^{-1}")
+    label.DrawLatex(mass_for_latex,0.7*2.5E+3, "2.5 ab^{-1}")
 
 
     canvas.RedrawAxis()
