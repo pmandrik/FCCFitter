@@ -170,6 +170,7 @@ if __name__=="__main__":
 
 
     dicgraph={}
+    mass_for_latex=int(graph_array[0][1][len(Mass)-2])*1.02
     color = [kBlue-4,kRed,kGreen-3,kViolet,kBlack]
     for s in xrange(len(signiList)):
       ana   = graph_array[s][0]
@@ -189,8 +190,10 @@ if __name__=="__main__":
         dicgraph[str(s)].GetXaxis().SetLimits(Mass[0], Mass[-1])
         if Disco[0]>1E+2:
             dicgraph[str(s)].SetMinimum(1E+2)
-        else:
+        elif Disco[0]>1E+1:
             dicgraph[str(s)].SetMinimum(1E+1)
+        else :
+            dicgraph[str(s)].SetMinimum(1E+0)
 
         dicgraph[str(s)].SetMaximum(1E+6)
         dicgraph[str(s)].GetYaxis().SetTitleOffset(1.6)
@@ -234,12 +237,9 @@ if __name__=="__main__":
     label.SetTextSize(0.036)
     label.DrawLatex(0.18,0.73, plotname)
     label.SetTextSize(0.03)
-    if ana=="tt":
-        label.DrawLatex(0.8,0.46, "30 ab^{-1}")
-        label.DrawLatex(0.8,0.315, "2.5 ab^{-1}")
-    if ana=="ll":
-        label.DrawLatex(0.8,0.675, "30 ab^{-1}")
-        label.DrawLatex(0.8,0.505, "2.5 ab^{-1}")
+    label.SetNDC(False)
+    label.DrawLatex(mass_for_latex,1.5*30E+3, "30 ab^{-1}")
+    label.DrawLatex(mass_for_latex,1.5*2.5E+3, "2.5 ab^{-1}")
 
 
     canvas.RedrawAxis()
