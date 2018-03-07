@@ -117,11 +117,11 @@ if __name__=="__main__":
 
     plt.ylabel('Int. Luminosity fb$^{-1}$')
     plt.xlabel('mass [TeV]')
-    #plt.title('luminosity verus mass for a 5 $\sigma$ discovery')
+    #plt.title('luminosity versus mass for a 5 $\sigma$ discovery')
     if 'tt' in namesList:
         plt.ylim(ymax = 1000000, ymin = 100)
         plt.text(10.57, 500000, r'$Z\' \rightarrow = t \bar{t}$')
-        plt.text(10.57, 300000, r'Integrated luminosity verus mass for a 5 $\sigma$ discovery')
+        plt.text(10.57, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
 
         plt.text(10.57, 2500, r'$2.5ab^{-1}$')
         plt.plot([10,30], [2500, 2500], color='black')
@@ -131,7 +131,7 @@ if __name__=="__main__":
     if 'll' in namesList:
         plt.ylim(ymax = 1000000, ymin = 10)
         plt.text(16, 500000, r'$Z\' \rightarrow = l^{+}l^{-}$')
-        plt.text(16, 300000, r'Integrated luminosity verus mass for a 5 $\sigma$ discovery')
+        plt.text(16, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
 
         plt.text(16, 2500, r'$2.5ab^{-1}$')
         plt.plot([15,50], [2500, 2500], color='black')
@@ -157,10 +157,10 @@ if __name__=="__main__":
     canvas.SetLeftMargin(0.14)
     canvas.SetRightMargin(0.08)
     canvas.SetGridx()
-    canvas.SetGridy()
+    #canvas.SetGridy()
 
     # need to define location in plot, can conflict with text
-    lg = r.TLegend(0.8,0.15,0.95,0.3)
+    lg = r.TLegend(0.6,0.78,0.78,0.88)
     lg.SetFillStyle(0)
     lg.SetLineColor(0)
     lg.SetBorderSize(0)
@@ -170,8 +170,8 @@ if __name__=="__main__":
 
 
     dicgraph={}
-    mass_for_latex=int(graph_array[0][1][len(Mass)-2])*1.02
     max_mass_idx=-1
+    mass_for_latex=int(graph_array[0][1][0])*1.12
     color = [kBlue-4,kRed,kGreen-3,kViolet,kBlack]
     for s in xrange(len(signiList)):
       ana   = graph_array[s][0]
@@ -237,7 +237,7 @@ if __name__=="__main__":
     label.DrawLatex(0.18,0.85, "FCC simulation")
     label.DrawLatex(0.18,0.79, "\sqrt{s}=100TeV")
     label.SetTextSize(0.03)
-    label.DrawLatex(0.2,0.14, "Integrated luminosity verus mass for a 5 #sigma discovery")
+    label.DrawLatex(0.2,0.14, "Integrated luminosity versus mass for a 5 #sigma discovery")
     label.SetTextSize(0.036)
     label.DrawLatex(0.18,0.73, plotname)
     label.SetTextSize(0.03)
