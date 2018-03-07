@@ -119,7 +119,7 @@ if __name__=="__main__":
     gtheo = r.TGraph(nmass, masses_array, XS)
 
     proc = '#sigma(pp #rightarrow Z\')*BR [pb]'
-    if ops.name.find("ww") : proc = '#sigma(pp #rightarrw RSG)*BR [pb]'
+    if ops.name.find("ww")>=0 : proc = '#sigma(pp #rightarrow RSG)*BR [pb]'
 
     gmed.SetName("exp_median")
     gmed.SetLineColor(1)
