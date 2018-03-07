@@ -159,8 +159,7 @@ if __name__=="__main__":
     canvas.SetGridx()
     #canvas.SetGridy()
 
-    # need to define location in plot, can conflict with text
-    lg = r.TLegend(0.6,0.78,0.78,0.88)
+    lg = r.TLegend(0.6,0.18,0.78,0.28)
     lg.SetFillStyle(0)
     lg.SetLineColor(0)
     lg.SetBorderSize(0)
