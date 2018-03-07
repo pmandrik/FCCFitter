@@ -76,7 +76,6 @@ if __name__=="__main__":
     parser.add_option('-p', '--plot', dest='plot', type=str, default='')
 
     ops, args = parser.parse_args()
-    plotname=ops.plot
     signiDict=ops.files
     names=ops.names
     
@@ -95,6 +94,8 @@ if __name__=="__main__":
     graph_array = []
     
     for s in xrange(len(signiList)):
+        plotname=namesList[s]
+
         print signiList[s]
         Disco,Mass=getMassDisco(signiList[s])
         Disco=[i/1000. for i in Disco]
@@ -159,43 +160,50 @@ if __name__=="__main__":
     canvas.SetGridy()
 
     # need to define location in plot, can conflict with text
-    lg = r.TLegend(0.8,0.1,0.95,0.3)
+    lg = r.TLegend(0.8,0.15,0.95,0.3)
     lg.SetFillStyle(0)
     lg.SetLineColor(0)
     lg.SetBorderSize(0)
     lg.SetShadowColor(10)
     lg.SetTextSize(0.040)
     lg.SetTextFont(42)
-    
+
+
+    dicgraph={}
     color = [kBlue-4,kRed,kGreen-3,kViolet,kBlack]
     for s in xrange(len(signiList)):
       ana   = graph_array[s][0]
       Mass  = graph_array[s][1]
       nmass = len(Mass)
       Disco = graph_array[s][2]
-
-      gdisco_root = r.TGraph(nmass, Mass, Disco)
-      if s<5 : gdisco_root.SetLineColor(color[s])
-      else   : gdisco_root.SetLineColor(s+20)
-      gdisco_root.SetLineWidth(3)
+      dicgraph[str(s)]= r.TGraph(nmass, Mass, Disco)
+      #gdisco_root = r.TGraph(nmass, Mass, Disco)
+      if s<5 : dicgraph[str(s)].SetLineColor(color[s])
+      else   : dicgraph[str(s)].SetLineColor(s+20)
+      dicgraph[str(s)].SetLineWidth(3)
       if s == 0:
-        gdisco_root.SetName(ana)
-        gdisco_root.SetTitle( "" )
-        gdisco_root.GetXaxis().SetTitle( "Mass [TeV]" )
-        gdisco_root.GetYaxis().SetTitle( "Int. Luminosity [fb^{-1}]" )
-        gdisco_root.GetXaxis().SetLimits(Mass[0], Mass[-1])
-        gdisco_root.SetMinimum(1E+2)
-        gdisco_root.SetMaximum(1E+8)
-        gdisco_root.GetYaxis().SetTitleOffset(1.6)
-        gdisco_root.Draw("ACP")
-        #gdisco_root.SetMarkerStyle(21)
-        #gdisco_root.SetMarkerSize(1.5)
-        #gdisco_root.SetMarkerColor(kRed)
-        #gdisco_root.Draw("*")
-      else :
-        gdisco_root.Draw("ACP same")
+        dicgraph[str(s)].SetName(ana)
+        dicgraph[str(s)].SetTitle( "" )
+        dicgraph[str(s)].GetXaxis().SetTitle( "Mass [TeV]" )
+        dicgraph[str(s)].GetYaxis().SetTitle( "Int. Luminosity [fb^{-1}]" )
+        dicgraph[str(s)].GetXaxis().SetLimits(Mass[0], Mass[-1])
+        if Disco[0]>1E+2:
+            dicgraph[str(s)].SetMinimum(1E+2)
+        else:
+            dicgraph[str(s)].SetMinimum(1E+1)
 
-      lg.AddEntry(gdisco_root,ana,"L")
+        dicgraph[str(s)].SetMaximum(1E+6)
+        dicgraph[str(s)].GetYaxis().SetTitleOffset(1.6)
+#        dicgraph[str(s)].Draw("AC")
+        dicgraph[str(s)].Draw("AC")
+        #dicgraph[str(s)].SetMarkerStyle(21)
+        #dicgraph[str(s)].SetMarkerSize(1.5)
+        #dicgraph[str(s)].SetMarkerColor(kRed)
+        #dicgraph[str(s)].Draw("*")
+      else :
+#        dicgraph[str(s)].Draw("C")
+          dicgraph[str(s)].Draw("C")
+      lg.AddEntry(dicgraph[str(s)],ana.replace('mumu','#mu#mu'),"L")
     if len(signiList)>1 : lg.Draw()
 
     line1 = TLine(graph_array[s][1][0],2.5E+3,graph_array[s][1][-1],2.5E+3);
@@ -226,12 +234,16 @@ if __name__=="__main__":
     label.SetTextSize(0.036)
     label.DrawLatex(0.18,0.73, plotname)
     label.SetTextSize(0.03)
-    label.DrawLatex(0.8,0.46, "30 ab^{-1}")
-    label.DrawLatex(0.8,0.315, "2.5 ab^{-1}")
+    if ana=="tt":
+        label.DrawLatex(0.8,0.46, "30 ab^{-1}")
+        label.DrawLatex(0.8,0.315, "2.5 ab^{-1}")
+    if ana=="ll":
+        label.DrawLatex(0.8,0.675, "30 ab^{-1}")
+        label.DrawLatex(0.8,0.505, "2.5 ab^{-1}")
 
 
     canvas.RedrawAxis()
-    canvas.Update()
+    #canvas.Update()
     canvas.GetFrame().SetBorderSize( 12 )
     canvas.Modified()
     canvas.Update()
