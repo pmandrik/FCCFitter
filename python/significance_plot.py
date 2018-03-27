@@ -226,7 +226,10 @@ if __name__=="__main__":
         #dicgraph[str(s)].Draw("*")
       else :
         dicgraph[str(s)].Draw("C")
-      lg.AddEntry(dicgraph[str(s)],ana.replace('mumu','#mu#mu'),"L")
+      lg_lbl=ana
+      lg_lbl=lg_lbl.replace('mumu','#mu#mu')
+      lg_lbl=lg_lbl.replace('ll','#it{ll}')
+      lg.AddEntry(dicgraph[str(s)],lg_lbl,"L")
     if len(signiList)>1 : lg.Draw()
 
     line1 = TLine(xmin,2.5E+3,xmax,2.5E+3);
