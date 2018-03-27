@@ -217,6 +217,7 @@ if __name__=="__main__":
             dicgraph[str(s)].SetMinimum(1E+0)
 
         dicgraph[str(s)].SetMaximum(1E+6)
+        dicgraph[str(s)].GetXaxis().SetTitleOffset(1.3)
         dicgraph[str(s)].GetYaxis().SetTitleOffset(1.6)
         dicgraph[str(s)].Draw("AC")
         #dicgraph[str(s)].SetMarkerStyle(21)
@@ -242,7 +243,8 @@ if __name__=="__main__":
 
     # make proper channel definition -> user need to adapts with his own definitions
     the_ana=''
-    if 'ee' in namesList and 'ee' in namesList and 'mumu' in namesList and 'll' in namesList and 'tt' in namesList: the_ana='ll_tt'
+    if 'ee' in namesList and 'mumu' in namesList and 'll' in namesList and 'tt' in namesList: the_ana='llSSM'
+    if 'ee' in namesList and 'mumu' in namesList and 'll' in namesList: the_ana='llSSM'
     elif 'SSM'  in namesList and "TC2" in namesList: the_ana='ttTC2'
     elif 'tt'   in namesList: the_ana='ttTC2'
     elif 'SSM'  in namesList: the_ana='ttSSM'
@@ -253,7 +255,7 @@ if __name__=="__main__":
     else : print "No associated channel, give it yourself by making your case for the_ana"
     # define the associated channel
     plotname = ""
-    if the_ana=='ll_tt': plotname+="Z\'_{SSM}"
+    if the_ana=='llSSM': plotname+="Z\'_{SSM}"
     if the_ana=='ttSSM': plotname+="Z\'_{SSM} #rightarrow t#bar{t}"
     if the_ana=='ttTC2': plotname+="Z\' #rightarrow t#bar{t}"
     if the_ana=='ll'   : plotname+="Z\' #rightarrow l^{+}l^{-}"
@@ -281,7 +283,7 @@ if __name__=="__main__":
       else :                                 s_pos.append("center")
     # match
     n_pos=0
-    print s_pos
+    #print s_pos
     if   'left'   in s_pos and 'center' in s_pos and 'right' in s_pos : n_pos=1
     elif 'left'   in s_pos and 'center' in s_pos : n_pos=2
     elif 'left'   in s_pos and 'right'  in s_pos : n_pos=1
