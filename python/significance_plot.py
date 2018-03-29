@@ -225,6 +225,8 @@ if __name__=="__main__":
     line2.Draw("same");
 
     plotname = ""
+    if ana=='SSM': plotname+="Z\'_{SSM} #rightarrow t#bar{t}"
+    if ana=='TC2': plotname+="Z\' #rightarrow t#bar{t}"
     if ana=='tt' : plotname+="Z\' #rightarrow t#bar{t}"
     if ana=='ll' : plotname+="Z\'_{SSM} #rightarrow l^{+}l^{-}"
     if ana=='ww' : plotname+="RSG #rightarrow W^{+}W^{-}"
