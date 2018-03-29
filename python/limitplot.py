@@ -94,6 +94,10 @@ if __name__=="__main__":
 
 
     XS=getXS(masses_nom, signal)
+    XStheo=array('d')
+    for v in XS:
+        if signal=="p8_pp_Zprime_VALUETeV_ll": XStheo.append(v/3.)
+        else:  XStheo.append(v)
     nmass=len(files_nom)
 
     ExpMed = array( 'd' )
@@ -116,7 +120,8 @@ if __name__=="__main__":
 
 
     gmed  = r.TGraph(nmass, masses_array, ExpMed)
-    gtheo = r.TGraph(nmass, masses_array, XS)
+    print XStheo
+    gtheo = r.TGraph(nmass, masses_array, XStheo)
 
     proc = '#sigma(pp #rightarrow Z\')*BR [pb]'
     if ops.name.find("ww")>=0 : proc = '#sigma(pp #rightarrow RSG)*BR [pb]'
@@ -125,7 +130,7 @@ if __name__=="__main__":
     gmed.SetLineColor(1)
     gmed.SetLineStyle(2)
     gmed.SetLineWidth(3)
-    gmed.SetTitle( 'Limit versus mass' )
+    gmed.SetTitle( '' )
     gmed.GetXaxis().SetTitle( 'Mass [TeV]' )
     gmed.GetYaxis().SetTitle( proc )
     gmed.GetXaxis().SetLimits(masses_nom[0], masses_nom[-1])
