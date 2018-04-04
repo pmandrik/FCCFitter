@@ -280,7 +280,7 @@ if __name__=="__main__":
         if d>1E+6 and mass_idx==-1: mass_idx=Disco.index(d)
       ref_mass=0.
       if mass_idx==-1: ref_mass=Mass[len(Mass)-1]
-      else           : ref_mass=float(Mass[mass_idx]-Mass[mass_idx-1])/2.
+      else           : ref_mass=float(Mass[mass_idx]+Mass[mass_idx-1])/2.
       if   ref_mass<float(xmax-xmin)*3./8. : s_pos.append("left")
       elif ref_mass>float(xmax-xmin)*6./8. : s_pos.append("right")
       else :                                 s_pos.append("center")
