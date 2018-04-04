@@ -129,7 +129,7 @@ def getSigni(cfg, lumi,combined):
     print '================  ',outdir
     print '================  ',job
     mass=cfg.split('_')
-    mass=[mass[i].replace('TeV.config','') for i in xrange(len(mass)) if 'TeV' in mass[i]]
+    mass=[mass[i].replace('TeV.config','').replace('TeV','') for i in xrange(len(mass)) if 'TeV' in mass[i]]
     if len(mass)==1:mass=mass[0]
     
     if not combined:
