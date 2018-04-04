@@ -119,6 +119,10 @@ if __name__=="__main__":
     plt.xlabel('mass [TeV]')
     #plt.title('luminosity versus mass for a 5 $\sigma$ discovery')
     if 'tt' in namesList:
+        print '----------------------'
+        print '--    running tt    --'
+        print '----------------------'
+
         plt.ylim(ymax = 1000000, ymin = 100)
         plt.text(10.57, 500000, r'$Z\' \rightarrow = t \bar{t}$')
         plt.text(10.57, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
@@ -129,6 +133,9 @@ if __name__=="__main__":
         plt.plot([10,30], [30000, 30000], color='black')
 
     if 'll' in namesList:
+        print '----------------------'
+        print '--    running ll    --'
+        print '----------------------'
         plt.ylim(ymax = 1000000, ymin = 10)
         plt.text(16, 500000, r'$Z\' \rightarrow = l^{+}l^{-}$')
         plt.text(16, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
@@ -138,6 +145,19 @@ if __name__=="__main__":
         plt.text(16, 30000, r'$30ab^{-1}$')
         plt.plot([15,50], [30000, 30000], color='black')
         plt.legend(loc=4)
+
+    if 'jj' in namesList:
+        print '----------------------'
+        print '--    running jj    --'
+        print '----------------------'
+        plt.ylim(ymax = 1000000, ymin = 100)
+        plt.text(35, 50, r'$Q* \rightarrow = jet jet$')
+        #plt.text(10.57, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
+
+        #plt.text(10.57, 2500, r'$2.5ab^{-1}$')
+        #plt.plot([10,30], [2500, 2500], color='black')
+        #plt.text(10.57, 30000, r'$30ab^{-1}$')
+        #plt.plot([10,30], [30000, 30000], color='black')
 
 
     plt.grid(True)
@@ -172,6 +192,7 @@ if __name__=="__main__":
     max_mass_idx=-1
     mass_for_latex=int(graph_array[0][1][0])*1.12
     color = [kBlue-4,kRed,kGreen-3,kViolet,kBlack]
+    print graph_array
     for s in xrange(len(signiList)):
       ana   = graph_array[s][0]
       Mass  = graph_array[s][1]
@@ -230,6 +251,9 @@ if __name__=="__main__":
     if ana=='tt' : plotname+="Z\' #rightarrow t#bar{t}"
     if ana=='ll' : plotname+="Z\'_{SSM} #rightarrow l^{+}l^{-}"
     if ana=='ww' : plotname+="RSG #rightarrow W^{+}W^{-}"
+    if ana=='jj' : plotname+="G* #rightarrow jet jet"
+    if ana=='tautau' : plotname+="Z\'_{SSM} #rightarrow #tau^{+}#tau^{-}"
+
     label = r.TLatex()
     label.SetNDC()
     label.SetTextColor(1)
