@@ -125,7 +125,8 @@ if __name__=="__main__":
 
     proc = '#sigma(pp #rightarrow Z\')*BR [pb]'
     if ops.name.find("ww")>=0 : proc = '#sigma(pp #rightarrow RSG)*BR [pb]'
-
+    if ops.name.find("jj")>=0 : proc = '#sigma(pp #rightarrow Q*)*BR [pb]'
+    
     gmed.SetName("exp_median")
     gmed.SetLineColor(1)
     gmed.SetLineStyle(2)
