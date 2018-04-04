@@ -119,6 +119,10 @@ if __name__=="__main__":
     plt.xlabel('mass [TeV]')
     #plt.title('luminosity versus mass for a 5 $\sigma$ discovery')
     if 'tt' in namesList:
+        print '----------------------'
+        print '--    running tt    --'
+        print '----------------------'
+
         plt.ylim(ymax = 1000000, ymin = 100)
         plt.text(10.57, 500000, r'$Z\' \rightarrow = t \bar{t}$')
         plt.text(10.57, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
@@ -129,6 +133,9 @@ if __name__=="__main__":
         plt.plot([10,30], [30000, 30000], color='black')
 
     if 'll' in namesList:
+        print '----------------------'
+        print '--    running ll    --'
+        print '----------------------'
         plt.ylim(ymax = 1000000, ymin = 10)
         plt.text(16, 500000, r'$Z\' \rightarrow = l^{+}l^{-}$')
         plt.text(16, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
@@ -138,6 +145,19 @@ if __name__=="__main__":
         plt.text(16, 30000, r'$30ab^{-1}$')
         plt.plot([15,50], [30000, 30000], color='black')
         plt.legend(loc=4)
+
+    if 'jj' in namesList:
+        print '----------------------'
+        print '--    running jj    --'
+        print '----------------------'
+        plt.ylim(ymax = 1000000, ymin = 100)
+        plt.text(35, 50, r'$Q* \rightarrow = jet jet$')
+        #plt.text(10.57, 300000, r'Integrated luminosity versus mass for a 5 $\sigma$ discovery')
+
+        #plt.text(10.57, 2500, r'$2.5ab^{-1}$')
+        #plt.plot([10,30], [2500, 2500], color='black')
+        #plt.text(10.57, 30000, r'$30ab^{-1}$')
+        #plt.plot([10,30], [30000, 30000], color='black')
 
 
     plt.grid(True)
@@ -194,6 +214,7 @@ if __name__=="__main__":
     # draw
     dicgraph={}
     color = [kBlue-4,kRed,kGreen-3,kViolet,kBlack]
+    print graph_array
     for s in xrange(len(signiList)):
       ana   = graph_array[s][0]
       Mass  = graph_array[s][1]
@@ -248,24 +269,27 @@ if __name__=="__main__":
     the_ana=''
     if 'ee' in namesList and 'mumu' in namesList and 'll' in namesList and 'tt' in namesList: the_ana='llSSM'
     if 'ee' in namesList and 'mumu' in namesList and 'll' in namesList: the_ana='llSSM'
-    elif 'SSM'  in namesList and "TC2" in namesList: the_ana='ttTC2'
-    elif 'tt'   in namesList: the_ana='ttTC2'
-    elif 'SSM'  in namesList: the_ana='ttSSM'
-    elif 'ee'   in namesList: the_ana='ee'
-    elif 'mumu' in namesList: the_ana='mumu'
-    elif 'll'   in namesList: the_ana='ll'
-    elif 'ww'   in namesList: the_ana='ww'
+    elif 'SSM'    in namesList and "TC2" in namesList: the_ana='ttTC2'
+    elif 'tt'     in namesList: the_ana='ttTC2'
+    elif 'SSM'    in namesList: the_ana='ttSSM'
+    elif 'ee'     in namesList: the_ana='ee'
+    elif 'mumu'   in namesList: the_ana='mumu'
+    elif 'll'     in namesList: the_ana='ll'
+    elif 'ww'     in namesList: the_ana='ww'
+    elif 'jj'     in namesList: the_ana='jj'
+    elif 'tautau' in namesList: the_ana='tautau'
     else : print "No associated channel, give it yourself by making your case for the_ana"
     # define the associated channel
     plotname = ""
-    if the_ana=='llSSM': plotname+="Z\'_{SSM}"
-    if the_ana=='ttSSM': plotname+="Z\'_{SSM} #rightarrow t#bar{t}"
-    if the_ana=='ttTC2': plotname+="Z\' #rightarrow t#bar{t}"
-    if the_ana=='ll'   : plotname+="Z\' #rightarrow l^{+}l^{-}"
-    if the_ana=='ee'   : plotname+="Z\' #rightarrow e^{+}e^{-}"
-    if the_ana=='mumu' : plotname+="Z\' #rightarrow #mu^{+}#mu^{-}"
-    if the_ana=='ww'   : plotname+="RSG #rightarrow W^{+}W^{-}"
-
+    if the_ana=='llSSM'  : plotname+="Z\'_{SSM}"
+    if the_ana=='ttSSM'  : plotname+="Z\'_{SSM} #rightarrow t#bar{t}"
+    if the_ana=='ttTC2'  : plotname+="Z\' #rightarrow t#bar{t}"
+    if the_ana=='ll'     : plotname+="Z\' #rightarrow l^{+}l^{-}"
+    if the_ana=='ee'     : plotname+="Z\' #rightarrow e^{+}e^{-}"
+    if the_ana=='mumu'   : plotname+="Z\' #rightarrow #mu^{+}#mu^{-}"
+    if the_ana=='ww'     : plotname+="RSG #rightarrow W^{+}W^{-}"
+    if the_ana=='jj'     : plotname+="G* #rightarrow jet jet"
+    if the_ana=='tautau' : plotname+="Z\'_{SSM} #rightarrow #tau^{+}#tau^{-}"
     # automatic position of caption
     left_pos=0.18
     center_pos=0.44
@@ -297,6 +321,7 @@ if __name__=="__main__":
     if n_pos==0 : the_pos=left_pos
     if n_pos==1 : the_pos=center_pos
     if n_pos==2 : the_pos=right_pos
+
 
     label = r.TLatex()
     label.SetNDC()
