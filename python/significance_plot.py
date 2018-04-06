@@ -270,6 +270,7 @@ if __name__=="__main__":
     if 'ee' in namesList and 'mumu' in namesList and 'll' in namesList and 'tt' in namesList: the_ana='llSSM'
     if 'ee' in namesList and 'mumu' in namesList and 'll' in namesList: the_ana='llSSM'
     elif 'SSM'    in namesList and "TC2" in namesList: the_ana='ttTC2'
+    elif 'TC2'    in namesList: the_ana='ttTC2'
     elif 'tt'     in namesList: the_ana='ttTC2'
     elif 'SSM'    in namesList: the_ana='ttSSM'
     elif 'ee'     in namesList: the_ana='ee'
